@@ -1,0 +1,513 @@
+.personal-passes-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.search-box, .date-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box input, .date-filter .date-input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: 250px;
+}
+
+.clear-filters {
+  padding: 8px 12px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.table-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table-wrapper {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.passes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.passes-table th, .passes-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.passes-table th {
+  position: sticky;
+  top: 0;
+  background-color: #f5f5f5;
+  z-index: 5;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.generate-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.generate-btn:hover {
+  background-color: #0069d9;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin: 20px;
+}
+
+/* Modal styles remain the same as before */
+.pass-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-width: 90%;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.pass-details {
+  margin: 20px 0;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 120px 10px 1fr;
+  margin-bottom: 8px;
+}
+
+.print-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.toggle-all {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+.toggle-all input {
+  margin-right: 0.5rem;
+}
+
+.date-input {
+  width: 250px; /* Wider to accommodate range text */
+}
+
+/* visitor pass validation css */
+
+/* Photo Button Styles */
+.photo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.photo-thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.default-photo {
+  width: 40px;
+  height: 40px;
+  color: #6c757d;
+  background: #f8f9fa;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px solid #ddd;
+}
+
+/* Photo Modal Styles */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  text-align: center;
+}
+
+.modal-photo {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 4px;
+}
+
+.no-photo {
+  padding: 40px;
+  text-align: center;
+}
+
+.no-photo-icon {
+  font-size: 80px;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+
+/* Photo Modal Styles */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.photo-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-photo {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 4px;
+}
+
+.no-photo-placeholder {
+  padding: 40px;
+  text-align: center;
+  min-width: 300px;
+}
+
+.no-photo-icon {
+  font-size: 60px;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+/* Update your existing photo button styles */
+.photo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.photo-btn:hover {
+  transform: scale(1.1);
+}
+
+.photo-thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.default-photo {
+  width: 40px;
+  height: 40px;
+  color: #6c757d;
+  background: #f8f9fa;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px solid #ddd;
+}
+/* VisitorPassValidation.css */
+/* Add these styles to your existing CSS file */
+
+/* Photo Button in Table */
+.photo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.photo-thumbnail {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.default-photo {
+  width: 100%;
+  height: 100%;
+  color: #6c757d;
+  background: #f8f9fa;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Photo Modal */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 80%;
+  max-height: 80%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-photo {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 4px;
+}
+
+.no-photo {
+  padding: 30px;
+  min-width: 300px;
+}
+
+.no-photo-icon {
+  font-size: 60px;
+  color: #6c757d;
+  margin-bottom: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+  z-index: 10;
+}
+
+/* Make sure these don't conflict with existing styles */
+.passes-table th, .passes-table td {
+  vertical-align: middle;
+}
+.photo-thumbnail {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.default-photo {
+  width: 40px;
+  height: 40px;
+  color: #95a5a6;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 8px;
+  background-color: #f5f5f5;
+}
+
+.modal-photo {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.no-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #95a5a6;
+}
+
+.no-photo-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}

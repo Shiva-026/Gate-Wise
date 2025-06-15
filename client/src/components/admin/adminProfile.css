@@ -1,0 +1,118 @@
+.app-container {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fafafa;
+  margin: 0;
+  padding:  0;
+}
+
+/* Navigation Bar Container */
+.nav-bar {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  width: 100%;
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  display: flex;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 50px;
+}
+
+/* Navigation Options - Updated */
+.nav-option {
+  
+  padding: 15px 20px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+  margin: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.nav-option:first-child {
+  width: 140px;
+  margin-left: 5px;
+}
+
+.nav-option:nth-child(3) {
+  width: 140px;
+}
+
+.nav-option:nth-child(5) {
+  width: 140px;
+}
+.nav-option:last-child {
+  border-right: none;
+}
+
+.nav-option:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Active state for current route */
+.nav-option.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    display: inline-flex;
+    width: 100%;
+  }
+  
+  .nav-option {
+    padding: 12px 15px;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .nav-container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Animation for smoother hover effects */
+.nav-option::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: white;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-option:hover::after {
+  width: 70%;
+}

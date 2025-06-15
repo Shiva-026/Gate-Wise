@@ -1,0 +1,170 @@
+# admin login req
+post http://localhost:3000/security-api/add
+Content-Type: application/json
+
+{
+    "username":"security",
+    "password":"securitypass"
+}
+
+### validate studdent pasess by admin and security
+get http://localhost:3000/valid-admin/validate-student-passes
+
+### validate visitor pasess by admin and security
+get http://localhost:3000/valid-admin/validate-visitor-passes
+
+###jwt req for author and admin login
+get http://localhost:3000/login-api/proc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ3MTQ3NDQ5LCJleHAiOjE3NDcxNDc0Njl9.yh5L8aAzsvhz1XcUDlMZG3rXqDfA46v0uUal3h0n4GQ
+
+###student login 
+post http://localhost:3000/student-api/login
+Content-Type: application/json
+
+{
+  "username":"22R21A1238",
+  "password":"22R21A1238"
+}
+
+###get all students
+get http://localhost:3000/student-api/all-students
+
+###serach student by roll no
+get http://localhost:3000/student-api/search
+
+###Add a student data
+POST http://localhost:3000/student-api/student
+Content-Type: application/json
+
+{
+  "name": "Shiva Kumar",
+  "dob": "2004-05-26",
+  "department": "Information Technology",
+  "rollno": "22R21A1238",
+  "gender": "Male",
+  "contact": "9948565931",
+  "username": "22R21A1267",
+  "password": "22R21A1238"
+}
+
+### delete a student
+delete  http://localhost:3000/student-api/delete/22R21A1238
+
+### update a student
+put http://localhost:3000/student-api/update/22R21A1238
+Content-Type: application/json
+
+{
+  "gender":"Male"
+}
+
+### get student all personal pasess list
+get http://localhost:3000/student-api/personal-passes/22R21A1238
+
+
+### req pass of student
+post http://localhost:3000/request-api/request-pass
+Content-Type: application/json
+
+{
+  "username":"22R21A1238",
+  "reason":"hssovu brother",
+  "fromTime":"2025-05-11",
+  "toTime":"2025-05-30",
+  "status":"pending"
+}
+
+### direct pass genertaion
+post http://localhost:3000/gatepass-api/generate-direct-gatepass
+Content-Type: application/json
+
+{
+  "username": "22R21A1238",
+  "reason": "Mediency",
+  "fromTime": "2025-05-24",
+  "toTime": "2025-05-30T15:01:59.257Z"
+}
+
+### accept req pass
+post http://localhost:3000/gatepass-api/generate-gatepass
+Content-Type: application/json
+
+{
+  "username": "22R21A1238",
+  "reason": "time pass",
+  "fromTime": "2025-05-11",
+  "toTime": "2025-05-12"
+}
+
+### reject the pass request
+post http://localhost:3000/request-api/reject-request
+Content-Type: application/json
+
+{
+  "username":"22R21A1238",
+  "reason":"time pass",
+  "fromTime":"2025-05-11",
+  "toTime":"2025-05-12"
+}
+
+
+### view alll req pasess
+get http://localhost:3000/request-api/all-req-passes
+
+
+
+
+
+
+
+### SECURITY LOGIN REQ
+post http://localhost:3000/login-api/security
+Content-Type: application/json
+
+{
+    "username":"security",
+    "password":"securitypass",
+    "role":"security"
+}
+
+### add and generate pass for visitor 
+post http://localhost:3000/visitor-api/add-visitor
+Content-Type: application/json
+
+{
+  "name":"nani",
+  "contact":"12345679",
+  "reason":"meet brother",
+  "gender":"Male",
+  "address":"thimmapur,lux",
+  "uniqueId":"addhar-12345489118",
+  "fromTime":"2025-05-13",
+  "toTime":"2025-05-13T15:41:17.869Z"
+}
+
+### update visitor 
+PUT http://localhost:3000/visitor-api/update-visitor
+Content-Type: application/json
+
+{
+  "name": "nani",
+  "contact": "12345679",
+  "updates": {
+    "gender": "Female"
+  }
+}
+
+### view all visitor
+get http://localhost:3000/visitor-api/view-visitors
+
+
+# ###post req
+# post http://localhost:3000/adminsec-api/add
+# Content-Type: application/json
+
+# {
+#     "username":"security",
+#     "password":"securitypass",
+#     "role":"security"
+# }
+

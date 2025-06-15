@@ -1,0 +1,31 @@
+/* Footer Styles */
+.app-footer {
+  background-color: #000;
+  color: #fff;
+  padding: 11px 0;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.app-footer p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}

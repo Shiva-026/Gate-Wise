@@ -1,0 +1,57 @@
+.menu-container {
+  width: 100%; /* Changed from fixed width to responsive */
+  max-width: 200px; /* Maximum width to maintain design */
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .menu-container {
+    margin: 25px auto; /* Center on mobile */
+    padding: 0 15px; /* Add some padding on small screens */
+  }
+}
+
+#cssmenu a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+.list-group {
+  padding-left: 0;
+  width: 100%; /* Ensure full width of parent */
+}
+
+.list-item-style {
+  background-color: #2e6da4;
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: 100%; /* Full width items */
+}
+
+.list-item-style:hover {
+  background-color: #204d74;
+}
+
+.list-item-style a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Make dropdown button responsive */
+.dropdown-toggle {
+  white-space: normal; /* Allow text to wrap if needed */
+}
+
+/* Ensure dropdown menu stays within viewport on mobile */
+@media (max-width: 576px) {
+  .dropdown-menu {
+    position: static;
+    float: none;
+    width: 100%;
+  }
+}
