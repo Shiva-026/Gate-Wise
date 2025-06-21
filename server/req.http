@@ -1,10 +1,10 @@
 # admin login req
-post http://localhost:3000/security-api/add
+post http://localhost:3000/admin-api/add
 Content-Type: application/json
 
 {
-    "username":"security",
-    "password":"securitypass"
+    "username":"admin",
+    "password":"adminpass"
 }
 
 ### validate studdent pasess by admin and security
@@ -156,15 +156,4 @@ Content-Type: application/json
 
 ### view all visitor
 get http://localhost:3000/visitor-api/view-visitors
-
-
-# ###post req
-# post http://localhost:3000/adminsec-api/add
-# Content-Type: application/json
-
-# {
-#     "username":"security",
-#     "password":"securitypass",
-#     "role":"security"
-# }
 

@@ -1,57 +1,75 @@
-    const exp=require('express')
-    const securityloginApp=exp.Router();
-    const bcryptjs=require('bcryptjs');
-    const expressasynchandler=require('express-async-handler');
-    const securityModel=require('../Models/securityModel')
-    securityloginApp.use(exp.json())
-    const jwt = require('jsonwebtoken'); // Add this import
+const express = require('express');
+const securityloginApp = express.Router();
+const bcryptjs = require('bcryptjs');
+const expressAsyncHandler = require('express-async-handler');
+const securityModel = require('../Models/securityModel');
+const jwt = require('jsonwebtoken');
 
-    //APIs
-    securityloginApp.post('/security',expressasynchandler(async(req,res)=>
-        {
-            let userCred=req.body;
-            //role check
-        
-            let userObj=await securityModel.findOne({username:userCred.username})
-        
-        
-            if(userObj===null)
-            {
-                return res.send({message:"invaild username"})
-            }
-                //password checkking
-                else
-                {
-        
-                        const result=await bcryptjs.compare(userCred.password,userObj.password)
-                        if(result===false)
-                        {
-                            return res.send({message:'invalid password'})
-                        }
-                        else
-                        {
-                            let signedToken = jwt.sign({ username: userObj.username }, 'shivakar', { expiresIn: '1h' })
-                                    return res.send({ message: 'login successful', payload: userObj, token: signedToken })
-        
-                            //return res.send({message:'login successful',payload:userObj})
-                        }
-                }
-        
-            }
-            
-        ))
+securityloginApp.use(express.json());
 
+// ✅ Predefined Security Credentials
+const PREDEFINED_SECURITY = {
+  username: "security",
+  password: "security@123"
+};
 
-    // securityloginApp.post('/add',expressasynchandler(async(req,res)=>
-    // {
-    // let secdata = req.body;
-    //     //password hashing
-    //     let hassedpass = await bcryptjs.hash(secdata.password, 6);
-    //     secdata.password = hassedpass;
-    //     //doc creation
-    //     let secdoc = new securityModel(secdata);
-    //     const sec = await secdoc.save();
-    //     res.status(201).send({ message: "user created", payload: sec })
-    // }))
+// ✅ SECURITY LOGIN API
+securityloginApp.post('/security', expressAsyncHandler(async (req, res) => {
+  const { username, password } = req.body;
 
-    module.exports=securityloginApp;
+  const userObj = await securityModel.findOne({ username });
+
+  if (userObj) {
+    const isMatch = await bcryptjs.compare(password, userObj.password);
+    if (!isMatch) {
+      return res.status(401).send({ message: 'invalid password' });
+    }
+
+    const signedToken = jwt.sign({ username: userObj.username }, 'shivakar', { expiresIn: '1h' });
+    return res.send({ message: 'login successful', payload: userObj, token: signedToken });
+  }
+
+  // Predefined fallback
+  if (username === PREDEFINED_SECURITY.username && password === PREDEFINED_SECURITY.password) {
+    const signedToken = jwt.sign({ username }, 'shivakar', { expiresIn: '1h' });
+    return res.send({
+      message: 'login successful',
+      payload: { username, role: 'security', source: 'predefined' },
+      token: signedToken
+    });
+  }
+
+  return res.status(404).send({ message: 'invalid username' });
+}));
+
+// ✅ SECURITY FORGOT PASSWORD
+securityloginApp.post('/forgot-password', expressAsyncHandler(async (req, res) => {
+  const { username, oldPassword, newPassword } = req.body;
+
+  const user = await securityModel.findOne({ username });
+
+  // Already in DB → update
+  if (user) {
+    const isMatch = await bcryptjs.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).send({ message: 'Old password is incorrect' });
+    }
+
+    const hashedNewPassword = await bcryptjs.hash(newPassword, 6);
+    user.password = hashedNewPassword;
+    await user.save();
+    return res.send({ message: 'Password updated successfully' });
+  }
+
+  // Not in DB → verify fallback
+  if (username === PREDEFINED_SECURITY.username && oldPassword === PREDEFINED_SECURITY.password) {
+    const hashedNewPassword = await bcryptjs.hash(newPassword, 6);
+    const newSecurity = new securityModel({ username, password: hashedNewPassword });
+    await newSecurity.save();
+    return res.send({ message: 'Security password updated and saved in DB' });
+  }
+
+  return res.status(404).send({ message: 'Invalid username or old password' });
+}));
+
+module.exports = securityloginApp;

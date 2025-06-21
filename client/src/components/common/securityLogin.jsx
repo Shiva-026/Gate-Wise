@@ -15,6 +15,12 @@ function SecurityLogin() {
   const { login } = useAuth();  
 
   const { isAuthenticated } = useAuth();
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotPasswordData, setForgotPasswordData] = useState({
+    username: '',
+    oldPassword: '',
+    newPassword: ''
+  });
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -149,20 +155,82 @@ function SecurityLogin() {
                   {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                 </div>
 
-                <div className="d-flex justify-content-between">
-                  <button 
-                    type="submit" 
-                    className="btn btn-warning"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Logging in...' : 'Login'}
-                  </button>
-                  <button type="button" className="btn btn-secondary" onClick={clearForm}>Cancel</button>
-                </div>
+                <div className="d-flex justify-content-between align-items-center">
+  <div>
+    <button 
+      type="submit" 
+      className="btn btn-primary"
+      disabled={isLoading}
+    >
+      {isLoading ? 'Logging in...' : 'Login'}
+    </button>
+    <button type="button" className="btn btn-secondary ms-2" onClick={clearForm}>
+      Cancel
+    </button>
+  </div>
+  <a 
+    href="#"
+    className="forgot-password-link"
+    onClick={(e) => {
+      e.preventDefault();
+      setShowForgotPassword(true);
+    }}
+  >
+    Forgot Password?
+  </a>
+</div>
               </form>
             </div>
           </div>
         </div>
+        {/* Forgot Password Modal */}
+{showForgotPassword && (
+  <div className="modal-backdrop">
+    <div className="modal-content">
+      <h5>Reset Password</h5>
+      <form onSubmit={async (e) => {
+        e.preventDefault();
+        try {
+          await axios.post('http://localhost:3000/security-api/forgot-password', forgotPasswordData);
+          alert("Password updated successfully!");
+          setShowForgotPassword(false);
+        } catch (error) {
+          alert(error.response?.data?.message || "Failed to update password");
+        }
+      }}>
+        <input
+          type="text"
+          placeholder="Security ID"
+          value={forgotPasswordData.username}
+          onChange={(e) => setForgotPasswordData({...forgotPasswordData, username: e.target.value})}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Old Password"
+          value={forgotPasswordData.oldPassword}
+          onChange={(e) => setForgotPasswordData({...forgotPasswordData, oldPassword: e.target.value})}
+          required
+        />
+        <input
+          type="password"
+          placeholder="New Password"
+          value={forgotPasswordData.newPassword}
+          onChange={(e) => setForgotPasswordData({...forgotPasswordData, newPassword: e.target.value})}
+          required
+        />
+        <div className="modal-actions">
+          <button type="button" onClick={() => setShowForgotPassword(false)}>
+            Cancel
+          </button>
+          <button type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
       </div>
     </div>
   );
