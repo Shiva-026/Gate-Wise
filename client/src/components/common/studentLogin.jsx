@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 function StudentLogin() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -27,7 +28,7 @@ function StudentLogin() {
     setIsLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:3000/student-api/login', {
+      const response = await axios.post(`${API_URL}/student-api/login`, {
         username: data.username,
         password: data.password
       });

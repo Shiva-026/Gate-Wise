@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './PersonalPasses.css';
 import { useOutletContext } from 'react-router-dom';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 
 const PersonalPasses = () => {
@@ -24,7 +25,7 @@ const PersonalPasses = () => {
   useEffect(() => {
     const fetchPasses = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/student-api/personal-passes/${studentData.rollno}`);
+        const response = await fetch(`${API_URL}/student-api/personal-passes/${studentData.rollno}`);
         const data = await response.json();
         
         if (data.message === "Personal passes fetched successfully") {

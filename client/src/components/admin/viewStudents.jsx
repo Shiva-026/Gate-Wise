@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaSearch, FaSpinner, FaTimes } from 'react-icons/fa';
 import './ViewStudents.css';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
@@ -14,7 +15,7 @@ const ViewStudents = () => {
     const fetchStudents = async () => {
       try {
         // Replace with your actual API endpoint
-        const response = await fetch('http://localhost:3000/student-api/all-students');
+        const response = await fetch(`${API_URL}/student-api/all-students`);
         const data = await response.json();
         
          if (data.message && Array.isArray(data.payload)) {

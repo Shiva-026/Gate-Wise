@@ -3,6 +3,7 @@ import { FaSearch, FaSpinner, FaTimes, FaUser } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ViewVisitors.css';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const ViewVisitors = () => {
   const [visitors, setVisitors] = useState([]);
@@ -23,7 +24,7 @@ const ViewVisitors = () => {
         setLoading(true);
         setError(null);
         
-        const response = await fetch('http://localhost:3000/visitor-api/view-visitors');
+        const response = await fetch(`${API_URL}/visitor-api/view-visitors`);
         
         if (!response.ok) {
           throw new Error(`Failed to load data: ${response.status}`);
@@ -87,7 +88,7 @@ const ViewVisitors = () => {
 
   const handlePhotoClick = (photo) => {
     if (photo) {
-      const photoUrl = photo.startsWith('http') ? photo : `http://localhost:3000/uploads/${photo}`;
+      const photoUrl = photo.startsWith('http') ? photo : `${API_URL}/uploads/${photo}`;
       setCurrentPhoto(photoUrl);
       setShowPhotoModal(true);
     }
@@ -184,7 +185,7 @@ const ViewVisitors = () => {
                     >
                       {visitor.photo ? (
                         <img 
-                          src={visitor.photo.startsWith('http') ? visitor.photo : `http://localhost:3000/uploads/${visitor.photo}`}
+                          src={visitor.photo.startsWith('http') ? visitor.photo : `${API_URL}/uploads/${visitor.photo}`}
                           alt="Visitor"
                           className="visitor-photo"
                         />

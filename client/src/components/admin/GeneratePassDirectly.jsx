@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaSpinner, FaCheck, FaTimes } from 'react-icons/fa';
 import moment from 'moment-timezone';
 import './GeneratePassDirectly.css';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const GeneratePassDirectly = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ const GeneratePassDirectly = () => {
       const fromTimeIST = moment(formData.fromTime).tz('Asia/Kolkata').format();
       const toTimeIST = moment(formData.toTime).tz('Asia/Kolkata').format();
 
-      const response = await fetch('http://localhost:3000/gatepass-api/generate-direct-gatepass', {
+      const response = await fetch(`${API_URL}/gatepass-api/generate-direct-gatepass`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

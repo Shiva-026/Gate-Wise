@@ -3,6 +3,7 @@ import { FaSpinner, FaSearch, FaCalendarAlt, FaCheck, FaTimes, FaUser } from 're
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './validation.css';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const VisitorPassValidation = () => {
   const [allVisitors, setAllVisitors] = useState([]);
@@ -34,7 +35,7 @@ const VisitorPassValidation = () => {
         setLoading(true);
         setError(null);
         
-        const response = await fetch('http://localhost:3000/valid-admin/validate-visitor-passes');
+        const response = await fetch(`${API_URL}/valid-admin/validate-visitor-passes`);
         
         if (!response.ok) throw new Error(`Server error: ${response.status}`);
 

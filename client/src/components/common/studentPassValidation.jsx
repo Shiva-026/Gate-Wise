@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './validation.css';
 import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const StudentPassValidation = () => {
   const [allPasses, setAllPasses] = useState([]);
@@ -24,7 +25,7 @@ const StudentPassValidation = () => {
         setLoading(true);
         setError(null);
         
-        const response = await fetch('http://localhost:3000/valid-admin/validate-student-passes', {
+        const response = await fetch('${API_URL}/valid-admin/validate-student-passes', {
           headers: {
             'Content-Type': 'application/json',
             ...(user?.token && { 'Authorization': `Bearer ${user.token}` })

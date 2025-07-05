@@ -3,6 +3,7 @@ import './RequestedPasses.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment-timezone';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const RequestedPasses = () => {
   const [passes, setPasses] = useState([]);
@@ -16,7 +17,7 @@ const RequestedPasses = () => {
   useEffect(() => {
     const fetchPasses = async () => {
       try {
-        const response = await fetch('http://localhost:3000/request-api/all-req-passes');
+        const response = await fetch(`${API_URL}/request-api/all-req-passes`);
         
         if (!response.ok) {
           const errorText = await response.text();
@@ -57,7 +58,7 @@ const RequestedPasses = () => {
         throw new Error('Missing required fields for acceptance');
       }
 
-      const response = await fetch('http://localhost:3000/gatepass-api/generate-gatepass', {
+      const response = await fetch(`${API_URL}/gatepass-api/generate-gatepass`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +92,7 @@ const RequestedPasses = () => {
   // Handle reject pass
   const handleReject = async (pass) => {
     try {
-      const response = await fetch('http://localhost:3000/request-api/reject-request', {
+      const response = await fetch(`${API_URL}/request-api/reject-request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

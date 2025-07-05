@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaSearch, FaEdit, FaTrash, FaSave, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import './EditStudent.css';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const EditStudent = () => {
   const departments = [
@@ -37,7 +38,7 @@ const EditStudent = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await axios.get(`http://localhost:3000/student-api/search?rollno=${searchRollNo}`);
+      const response = await axios.get(`${API_URL}/student-api/search?rollno=${searchRollNo}`);
       if (response.data) {
         setStudent(response.data);
         setFormData({
@@ -86,7 +87,7 @@ const EditStudent = () => {
         ...formData,
         branch: formData.department // Map department back to branch for API
       };
-      const response = await axios.put(`http://localhost:3000/student-api/update/${formData.username}`, updatePayload);
+      const response = await axios.put(`${API_URL}/student-api/update/${formData.username}`, updatePayload);
       setStudent({
         ...response.data.student,
         branch: formData.department // Update local state with new department
@@ -105,7 +106,7 @@ const EditStudent = () => {
       setLoading(true);
       setError('');
       try {
-        await axios.delete(`http://localhost:3000/student-api/delete/${formData.username}`);
+        await axios.delete(`${API_URL}/student-api/delete/${formData.username}`);
         setStudent(null);
         setSearchRollNo('');
         setSuccess('Student deleted successfully');

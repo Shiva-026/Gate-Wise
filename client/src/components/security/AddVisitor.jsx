@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FaCamera, FaSpinner, FaCheck, FaTimes } from 'react-icons/fa';
 import moment from 'moment';
 import './AddVisitor.css';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const AddVisitor = () => {
   const [formData, setFormData] = useState({
@@ -69,7 +70,7 @@ const AddVisitor = () => {
         formDataToSend.append('photo', photo);
       }
 
-      const response = await fetch('http://localhost:3000/visitor-api/add-visitor', {
+      const response = await fetch(`${API_URL}/visitor-api/add-visitor`, {
         method: 'POST',
         body: formDataToSend
       });
@@ -305,7 +306,7 @@ const AddVisitor = () => {
                 <span>:</span>
                 {generatedPass.photoUrl || generatedPass.photo ? (
                   <img 
-                    src={generatedPass.photoUrl || `http://localhost:3000/uploads/${generatedPass.photo}`} 
+                    src={generatedPass.photoUrl || `${API_URL}/uploads/${generatedPass.photo}`} 
                     alt="Visitor" 
                     className="pass-photo"
                     onError={(e) => {

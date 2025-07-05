@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './RequestPassForm.css';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const RequestPassForm = () => {
   const { studentData } = useOutletContext();
@@ -33,7 +34,7 @@ const RequestPassForm = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/request-api/request-pass', {
+      const response = await fetch(`${API_URL}/request-api/request-pass`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

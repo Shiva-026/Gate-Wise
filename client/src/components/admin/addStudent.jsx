@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import './AddStudent.css'; // Regular CSS import
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const AddStudent = () => {
   const { 
@@ -17,7 +18,7 @@ const AddStudent = () => {
         ...data,
         dob: new Date(data.dob).toISOString()
       };
-      await axios.post('http://localhost:3000/student-api/student', formattedData);
+      await axios.post(`${API_URL}/student-api/student`, formattedData);
       reset();
     } catch (error) {
       console.error('Error:', error);

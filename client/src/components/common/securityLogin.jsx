@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 function SecurityLogin() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -33,7 +34,7 @@ function SecurityLogin() {
     setIsLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:3000/security-api/security', {
+      const response = await axios.post(`${API_URL}/security-api/security`, {
         username: data.username,
         password: data.password
       });
@@ -191,7 +192,7 @@ function SecurityLogin() {
       <form onSubmit={async (e) => {
         e.preventDefault();
         try {
-          await axios.post('http://localhost:3000/security-api/forgot-password', forgotPasswordData);
+          await axios.post(`${API_URL}/security-api/forgot-password`, forgotPasswordData);
           alert("Password updated successfully!");
           setShowForgotPassword(false);
         } catch (error) {
