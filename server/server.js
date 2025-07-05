@@ -24,9 +24,14 @@ app.use('/uploads', exp.static(path.join(__dirname, 'uploads')));
 
 // Middleware setup
 app.use(cors({
-  origin: ['https://gate-wise-w11t.vercel.app', 'http://localhost:5173'], // ✅ allow both dev and deployed
+  origin: [
+    'http://localhost:5173',
+    'https://gate-wise-w11t.vercel.app',
+    'https://gate-wise-pucwjeu3g-shivas-projects-abad0657.vercel.app'  // ✅ NEWLY ADDED
+  ],
   credentials: true
 }));
+
 
 
 app.use(exp.json());
