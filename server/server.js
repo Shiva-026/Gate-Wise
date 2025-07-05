@@ -24,9 +24,11 @@ app.use('/uploads', exp.static(path.join(__dirname, 'uploads')));
 
 // Middleware setup
 app.use(cors({
-  origin: 'http://localhost:5173', // allow frontend
-  credentials: true, // if using cookies (optional)
+  origin: ['https://gate-wise-w11t.vercel.app', 'http://localhost:5173'], // ✅ allow both dev and deployed
+  credentials: true
 }));
+
+
 app.use(exp.json());
 app.use(cookieParser());
 
