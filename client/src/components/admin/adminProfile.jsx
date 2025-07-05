@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './adminProfile.css';
+import './AdminProfile.css';
 
 const AdminProfile = () => {
   const navigate = useNavigate();

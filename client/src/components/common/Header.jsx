@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './header.css';
+import './Header.css';
 import { useAuth } from '../context/AuthContext';
 import logoImage from '../../assets/GateWiselogo.png';
 

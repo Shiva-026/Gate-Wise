@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaSearch, FaEdit, FaTrash, FaSave, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
-import './editStudent.css';
+import './EditStudent.css';
 const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const EditStudent = () => {

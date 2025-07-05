@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaSpinner, FaSearch, FaCalendarAlt, FaCheck, FaTimes, FaUser } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './validation.css';
+import './Validation.css';
 const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const VisitorPassValidation = () => {

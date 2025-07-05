@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import './addStudent.css'; // Regular CSS import
+import './AddStudent.css'; // Regular CSS import
 const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
 
 const AddStudent = () => {

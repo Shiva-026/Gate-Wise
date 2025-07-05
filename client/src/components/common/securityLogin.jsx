@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './studentLogin.css';
+import './StudentLogin.css';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

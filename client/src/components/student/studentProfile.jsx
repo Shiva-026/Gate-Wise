@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './studentProfile.css';
+import './StudentProfile.css';
 
 const StudentProfile = () => {
   const navigate = useNavigate();
