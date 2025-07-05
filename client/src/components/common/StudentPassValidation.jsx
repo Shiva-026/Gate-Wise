@@ -25,7 +25,7 @@ const StudentPassValidation = () => {
         setLoading(true);
         setError(null);
         
-        const response = await fetch('${API_URL}/valid-admin/validate-student-passes', {
+        const response = await fetch(`${API_URL}/valid-admin/validate-student-passes`, {
           headers: {
             'Content-Type': 'application/json',
             ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
