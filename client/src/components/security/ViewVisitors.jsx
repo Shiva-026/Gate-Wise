@@ -3,9 +3,11 @@ import { FaSearch, FaSpinner, FaTimes, FaUser } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ViewVisitors.css';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const ViewVisitors = () => {
+  const { user } = useAuth();
   const [visitors, setVisitors] = useState([]);
   const [filteredVisitors, setFilteredVisitors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,8 +26,13 @@ const ViewVisitors = () => {
         setLoading(true);
         setError(null);
         
-        const response = await fetch(`${API_URL}/visitor-api/view-visitors`);
-        
+        const response = await fetch(`${API_URL}/visitor-api/view-visitors`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+          }
+        });
+
         if (!response.ok) {
           throw new Error(`Failed to load data: ${response.status}`);
         }

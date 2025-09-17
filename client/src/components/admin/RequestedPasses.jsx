@@ -3,9 +3,11 @@ import './RequestedPasses.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment-timezone';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const RequestedPasses = () => {
+  const { token } = useAuth();
   const [passes, setPasses] = useState([]);
   const [selectedPass, setSelectedPass] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,8 +19,12 @@ const RequestedPasses = () => {
   useEffect(() => {
     const fetchPasses = async () => {
       try {
-        const response = await fetch(`${API_URL}/request-api/all-req-passes`);
-        
+        const response = await fetch(`${API_URL}/request-api/all-req-passes`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Server error: ${response.status} - ${errorText}`);
@@ -63,6 +69,7 @@ const RequestedPasses = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        Authorization: `Bearer ${token}`,
         body: JSON.stringify({
           username: pass.username,
           fromTime: moment(pass.fromTime).tz('Asia/Kolkata').format(),
@@ -96,6 +103,7 @@ const RequestedPasses = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           username: pass.username,

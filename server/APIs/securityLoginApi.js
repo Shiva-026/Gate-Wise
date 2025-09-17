@@ -25,7 +25,7 @@ securityloginApp.post('/security', expressAsyncHandler(async (req, res) => {
       return res.status(401).send({ message: 'invalid password' });
     }
 
-    const signedToken = jwt.sign({ username: userObj.username }, 'shivakar', { expiresIn: '1h' });
+    const signedToken = jwt.sign({ username: userObj.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
     return res.send({ message: 'login successful', payload: userObj, token: signedToken });
   }
 

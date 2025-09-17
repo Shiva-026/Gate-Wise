@@ -4,9 +4,11 @@ import { useOutletContext } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './RequestPassForm.css';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const RequestPassForm = () => {
+  const { user } = useAuth();
   const { studentData } = useOutletContext();
   const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm();
   const [successMsg, setSuccessMsg] = useState('');
@@ -37,7 +39,8 @@ const RequestPassForm = () => {
       const response = await fetch(`${API_URL}/request-api/request-pass`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
         },
         body: JSON.stringify(requestData)
       });

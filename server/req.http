@@ -37,14 +37,14 @@ POST http://localhost:3000/student-api/student
 Content-Type: application/json
 
 {
-  "name": "Shiva Kumar",
+  "name": "Karthisha",
   "dob": "2004-05-26",
   "department": "Information Technology",
-  "rollno": "22R21A1238",
-  "gender": "Male",
+  "rollno": "22R21A1239",
+  "gender": "Female",
   "contact": "9948565931",
-  "username": "22R21A1267",
-  "password": "22R21A1238"
+  "username": "22R21A1239",
+  "password": "22R21A1239"
 }
 
 ### delete a student

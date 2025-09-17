@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { FaSearch, FaEdit, FaTrash, FaSave, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import './EditStudent.css';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const EditStudent = () => {
+  const { token } = useAuth();
   const departments = [
     'Computer Science and Engineering',
     'Information Technology',
@@ -38,7 +40,7 @@ const EditStudent = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await axios.get(`${API_URL}/student-api/search?rollno=${searchRollNo}`);
+      const response = await axios.get(`${API_URL}/student-api/search?rollno=${searchRollNo}`,{ headers: { Authorization: `Bearer ${token}` } });
       if (response.data) {
         setStudent(response.data);
         setFormData({
@@ -87,7 +89,7 @@ const EditStudent = () => {
         ...formData,
         branch: formData.department // Map department back to branch for API
       };
-      const response = await axios.put(`${API_URL}/student-api/update/${formData.username}`, updatePayload);
+      const response = await axios.put(`${API_URL}/student-api/update/${formData.username}`, updatePayload,{ headers: { Authorization: `Bearer ${token}` } });
       setStudent({
         ...response.data.student,
         branch: formData.department // Update local state with new department
@@ -106,7 +108,7 @@ const EditStudent = () => {
       setLoading(true);
       setError('');
       try {
-        await axios.delete(`${API_URL}/student-api/delete/${formData.username}`);
+        await axios.delete(`${API_URL}/student-api/delete/${formData.username}`,{ headers: { Authorization: `Bearer ${token}` } });
         setStudent(null);
         setSearchRollNo('');
         setSuccess('Student deleted successfully');

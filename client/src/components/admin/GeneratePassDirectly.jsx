@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { FaSpinner, FaCheck, FaTimes } from 'react-icons/fa';
 import moment from 'moment-timezone';
 import './GeneratePassDirectly.css';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const GeneratePassDirectly = () => {
+  const { token } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     reason: '',
@@ -40,8 +42,9 @@ const GeneratePassDirectly = () => {
       const response = await fetch(`${API_URL}/gatepass-api/generate-direct-gatepass`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+    'Content-Type': 'application/json',
+   },
+   Authorization: `Bearer ${token}`,
         body: JSON.stringify({
           username: formData.username,
           reason: formData.reason,

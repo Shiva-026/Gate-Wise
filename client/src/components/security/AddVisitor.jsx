@@ -2,9 +2,11 @@ import React, { useState, useRef } from 'react';
 import { FaCamera, FaSpinner, FaCheck, FaTimes } from 'react-icons/fa';
 import moment from 'moment';
 import './AddVisitor.css';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+import { useAuth } from '../context/AuthContext';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const AddVisitor = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
@@ -72,6 +74,10 @@ const AddVisitor = () => {
 
       const response = await fetch(`${API_URL}/visitor-api/add-visitor`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+        },
         body: formDataToSend
       });
 

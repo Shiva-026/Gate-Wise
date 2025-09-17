@@ -1,10 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 import './AddStudent.css'; // Regular CSS import
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const AddStudent = () => {
+  const { token } = useAuth();
   const { 
     register, 
     handleSubmit, 
@@ -18,7 +20,7 @@ const AddStudent = () => {
         ...data,
         dob: new Date(data.dob).toISOString()
       };
-      await axios.post(`${API_URL}/student-api/student`, formattedData);
+      await axios.post(`${API_URL}/student-api/student`, formattedData,  { headers: { Authorization: `Bearer ${token}` } });
       reset();
     } catch (error) {
       console.error('Error:', error);

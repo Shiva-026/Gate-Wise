@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Validation.css';
 import { useAuth } from '../context/AuthContext';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const StudentPassValidation = () => {
   const [allPasses, setAllPasses] = useState([]);

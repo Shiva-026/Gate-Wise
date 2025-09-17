@@ -60,7 +60,7 @@ studentApp.post('/login', expressasynchandler(async (req, res) => {
             return res.send({ message: 'invalid password' })
         }
         else {
-            let signedToken = jwt.sign({ username: studentObj.username }, 'shivakar', { expiresIn: '1h' })
+            let signedToken = jwt.sign({ username: studentObj.username }, process.env.JWT_SECRET, { expiresIn: '1h' })
             return res.send({ message: 'login successful', payload: studentObj, token: signedToken })
         }
     }

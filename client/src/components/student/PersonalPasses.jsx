@@ -3,11 +3,13 @@ import { FaSpinner, FaSearch, FaCalendarAlt, FaFileDownload, FaTimes } from 'rea
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './PersonalPasses.css';
+import { useAuth } from '../context/AuthContext';
 import { useOutletContext } from 'react-router-dom';
-const API_URL=import.meta.env.API_URL||'https://gate-wise-2.onrender.com';
+const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 
 const PersonalPasses = () => {
+  const { user } = useAuth();
   const [passes, setPasses] = useState({
     requestPasses: [],
     gatePasses: []
@@ -25,7 +27,12 @@ const PersonalPasses = () => {
   useEffect(() => {
     const fetchPasses = async () => {
       try {
-        const response = await fetch(`${API_URL}/student-api/personal-passes/${studentData.rollno}`);
+        const response = await fetch(`${API_URL}/student-api/personal-passes/${studentData.rollno}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+          }
+        });
         const data = await response.json();
         
         if (data.message === "Personal passes fetched successfully") {

@@ -3,9 +3,10 @@ import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './AdminProfile.css';
 
+
 const AdminProfile = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated, loading, logout } = useAuth();
+  const { user, isAuthenticated, loading, logout , token} = useAuth();
 
   useEffect(() => {
     if (!loading && !isAuthenticated ) {
@@ -67,7 +68,7 @@ const AdminProfile = () => {
       </div>
 
       <div className="dashboard-content">
-        <Outlet context={{ adminData:user }} />
+        <Outlet context={{ adminData:user,token }} />
       </div>
     </div>
   );

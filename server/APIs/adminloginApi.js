@@ -26,13 +26,13 @@ adminloginApp.post('/admin', expressAsyncHandler(async (req, res) => {
       return res.status(401).send({ message: 'invalid password' });
     }
 
-    const signedToken = jwt.sign({ username: userObj.username }, 'shivakar', { expiresIn: '1h' });
+    const signedToken = jwt.sign({ username: userObj.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
     return res.send({ message: 'login successful', payload: userObj, token: signedToken });
   }
 
   // Fallback to predefined admin
   if (username === PREDEFINED_ADMIN.username && password === PREDEFINED_ADMIN.password) {
-    const signedToken = jwt.sign({ username }, 'shivakar', { expiresIn: '1h' });
+    const signedToken = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
     return res.send({
       message: 'login successful',
       payload: { username, role: 'admin', source: 'predefined' },
