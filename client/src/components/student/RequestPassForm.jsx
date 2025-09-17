@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const RequestPassForm = () => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { studentData } = useOutletContext();
   const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm();
   const [successMsg, setSuccessMsg] = useState('');
@@ -40,7 +40,7 @@ const RequestPassForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+          ...(token && { 'Authorization': `Bearer ${token}` })
         },
         body: JSON.stringify(requestData)
       });

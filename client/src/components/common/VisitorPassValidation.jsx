@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const VisitorPassValidation = () => {
-const { user } = useAuth();
+const { user, token } = useAuth();
 
   const [allVisitors, setAllVisitors] = useState([]);
   const [filteredVisitors, setFilteredVisitors] = useState([]);
@@ -41,7 +41,7 @@ const { user } = useAuth();
         const response = await fetch(`${API_URL}/valid-admin/validate-visitor-passes`, {
           headers: {
             'Content-Type': 'application/json',
-            ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+            ...(token && { 'Authorization': `Bearer ${token}` })
           }
         });
 

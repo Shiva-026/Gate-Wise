@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const AddVisitor = () => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
@@ -76,7 +76,7 @@ const AddVisitor = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+          ...(token && { 'Authorization': `Bearer ${token}` })
         },
         body: formDataToSend
       });

@@ -9,7 +9,7 @@ const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 
 const PersonalPasses = () => {
-  const { user } = useAuth();
+  const { user , token } = useAuth();
   const [passes, setPasses] = useState({
     requestPasses: [],
     gatePasses: []
@@ -30,7 +30,7 @@ const PersonalPasses = () => {
         const response = await fetch(`${API_URL}/student-api/personal-passes/${studentData.rollno}`, {
           headers: {
             'Content-Type': 'application/json',
-            ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+            ...(token && { 'Authorization': `Bearer ${token}` })
           }
         });
         const data = await response.json();

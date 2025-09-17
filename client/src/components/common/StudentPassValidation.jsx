@@ -17,7 +17,7 @@ const StudentPassValidation = () => {
   });
   const [showAll, setShowAll] = useState(false);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
+ const { user, token } = useAuth();
 
   useEffect(() => {
     const fetchPasses = async () => {
@@ -28,7 +28,7 @@ const StudentPassValidation = () => {
         const response = await fetch(`${API_URL}/valid-admin/validate-student-passes`, {
           headers: {
             'Content-Type': 'application/json',
-            ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+            ...(token && { 'Authorization': `Bearer ${token}` })
           }
         });
         

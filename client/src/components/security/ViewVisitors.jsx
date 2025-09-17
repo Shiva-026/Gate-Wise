@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 const API_URL=import.meta.env.VITE_API_URL||'https://gate-wise-2.onrender.com';
 
 const ViewVisitors = () => {
-  const { user } = useAuth();
+  const { user , token } = useAuth();
   const [visitors, setVisitors] = useState([]);
   const [filteredVisitors, setFilteredVisitors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ const ViewVisitors = () => {
         const response = await fetch(`${API_URL}/visitor-api/view-visitors`, {
           headers: {
             'Content-Type': 'application/json',
-            ...(user?.token && { 'Authorization': `Bearer ${user.token}` })
+            ...(token && { 'Authorization': `Bearer ${token}` })
           }
         });
 
