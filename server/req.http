@@ -37,25 +37,25 @@ POST http://localhost:3000/student-api/student
 Content-Type: application/json
 
 {
-  "name": "Karthisha",
+  "name": "Anusha",
   "dob": "2004-05-26",
   "department": "Information Technology",
-  "rollno": "22R21A1239",
+  "rollno": "22R21A1222",
   "gender": "Female",
   "contact": "9948565931",
-  "username": "22R21A1239",
-  "password": "22R21A1239"
+  "username": "22R21A1222",
+  "password": "22R21A1222"
 }
 
 ### delete a student
-delete  http://localhost:3000/student-api/delete/22R21A1238
+delete  http://localhost:3000/student-api/delete/22R21A1222
 
 ### update a student
 put http://localhost:3000/student-api/update/22R21A1238
 Content-Type: application/json
 
 {
-  "gender":"Male"
+  "department":"CSE-AI&ML"
 }
 
 ### get student all personal pasess list
@@ -157,3 +157,7 @@ Content-Type: application/json
 ### view all visitor
 get http://localhost:3000/visitor-api/view-visitors
 
+
+
+###
+get https://gate-wise-2.onrender.com/student-api/search?rollno=22R21A1238

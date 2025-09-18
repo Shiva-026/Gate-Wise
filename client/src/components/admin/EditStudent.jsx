@@ -81,25 +81,42 @@ const EditStudent = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdate = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const updatePayload = {
-        ...formData,
-        branch: formData.department // Map department back to branch for API
-      };
-      const response = await axios.put(`${API_URL}/student-api/update/${formData.username}`, updatePayload,{ headers: { Authorization: `Bearer ${token}` } });
-      setStudent(response.data.student);
-
-      setSuccess('Student updated successfully');
-      setEditMode(false);
-    } catch (err) {
-      setError(err.response?.data?.message || 'Error updating student');
-    } finally {
-      setLoading(false);
+ const handleUpdate = async () => {
+  setLoading(true);
+  setError('');
+  try {
+    // Create the payload with the correct field names expected by the backend
+    const updatePayload = {
+      dob: formData.dob,
+      branch: formData.department, // Map department to branch
+      gender: formData.gender,
+      contact: formData.contact,
+      username: formData.username,
+    };
+    
+    // Only include password if it's provided
+    if (formData.password) {
+      updatePayload.password = formData.password;
     }
-  };
+
+    const response = await axios.put(
+      `${API_URL}/student-api/update/${formData.username}`, 
+      updatePayload,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    
+    setStudent(response.data.student);
+    setSuccess('Student updated successfully');
+    setEditMode(false);
+  }catch (err) {
+  console.error('Update error:', err.response?.data || err.message);
+  setError(err.response?.data?.message || 'Error updating student');
+} finally {
+  setLoading(false);
+}
+};
+
+
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this student?')) {

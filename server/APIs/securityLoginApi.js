@@ -28,9 +28,6 @@ securityloginApp.post('/security', expressAsyncHandler(async (req, res) => {
     const signedToken = jwt.sign({ username: userObj.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
     return res.send({ message: 'login successful', payload: userObj, token: signedToken });
   }
-  else {
-    return res.status(404).send({ message: 'invalid username' });
-  }
 
   // Predefined fallback
   if (username === PREDEFINED_SECURITY.username && password === PREDEFINED_SECURITY.password) {
@@ -42,7 +39,7 @@ securityloginApp.post('/security', expressAsyncHandler(async (req, res) => {
     });
   }
 
-  return res.status(404).send({ message: 'invalid password' });
+  return res.status(404).send({ message: 'invalid username' });
 }));
 
 // ✅ SECURITY FORGOT PASSWORD

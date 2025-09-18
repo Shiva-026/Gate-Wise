@@ -25,7 +25,8 @@ app.use('/uploads', exp.static(path.join(__dirname, 'uploads')));
 // ✅ CORS setup
 const allowedOrigins = [
   "http://localhost:5173",   // local frontend
-  "https://gate-wise.vercel.app" // deployed frontend
+  "https://gate-wise-w11t-wpkmw43mt-shivas-projects-abad0657.vercel.app",
+  "https://gate-wise-w11t.vercel.app" // deployed frontend
 ];
 
 app.use(

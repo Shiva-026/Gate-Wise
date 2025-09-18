@@ -107,6 +107,12 @@ studentApp.put('/update/:username', expressasynchandler(async (req, res) => {
     const { username } = req.params;
     const updateData = req.body;
 
+    // Map branch to department for the schema
+    if (updateData.branch) {
+        updateData.department = updateData.branch;
+        delete updateData.branch; // Remove the branch field
+    }
+
     const updatedStudent = await StudentModel.findOneAndUpdate(
         { username },
         updateData,
