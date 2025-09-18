@@ -90,10 +90,8 @@ const EditStudent = () => {
         branch: formData.department // Map department back to branch for API
       };
       const response = await axios.put(`${API_URL}/student-api/update/${formData.username}`, updatePayload,{ headers: { Authorization: `Bearer ${token}` } });
-      setStudent({
-        ...response.data.student,
-        branch: formData.department // Update local state with new department
-      });
+      setStudent(response.data.student);
+
       setSuccess('Student updated successfully');
       setEditMode(false);
     } catch (err) {
@@ -219,7 +217,7 @@ const EditStudent = () => {
                     ))}
                   </select>
                 ) : (
-                  <input type="text" value={student.branch} readOnly />
+                  <input type="text" value={formData.department} readOnly />
                 )}
               </div>
               <div className="form-field">

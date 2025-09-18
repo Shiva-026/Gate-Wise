@@ -65,18 +65,19 @@ const RequestedPasses = () => {
       }
 
       const response = await fetch(`${API_URL}/gatepass-api/generate-gatepass`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        Authorization: `Bearer ${token}`,
-        body: JSON.stringify({
-          username: pass.username,
-          fromTime: moment(pass.fromTime).tz('Asia/Kolkata').format(),
-          toTime: moment(pass.toTime).tz('Asia/Kolkata').format(),
-          reason: pass.reason || '' // Include reason if available
-        })
-      });
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    username: pass.username,
+    fromTime: moment(pass.fromTime).tz('Asia/Kolkata').format(),
+    toTime: moment(pass.toTime).tz('Asia/Kolkata').format(),
+    reason: pass.reason || ''
+  })
+});
+
 
       const result = await response.json();
 
