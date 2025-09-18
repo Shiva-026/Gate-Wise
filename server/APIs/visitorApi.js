@@ -4,8 +4,14 @@ const expressasynchandler = require('express-async-handler');
 const visitorModel = require('../Models/visitorModel');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs'); // Add this import
 
 visitorApp.use(exp.json());
+
+// Create uploads directory if it doesn't exist
+if (!fs.existsSync('./uploads')) {
+  fs.mkdirSync('./uploads', { recursive: true });
+}
 
 visitorApp.use('/uploads', exp.static('uploads'));
 
@@ -26,14 +32,9 @@ const upload = multer({ storage });
 
 // check the totime before pass generation
 function isFutureOrCurrentDate(toTime) {
-  const today = new Date();
   const toDate = new Date(toTime);
-
-  // Set both dates to midnight for pure date comparison
-  today.setHours(0, 0, 0, 0);
-  toDate.setHours(0, 0, 0, 0);
-
-  return toDate >= today;
+  const now = new Date();
+  return toDate >= now; // Compare actual datetime, not just date
 }
 
 
@@ -46,6 +47,7 @@ function generateVisitorId() {
 
 // Add visitor
 visitorApp.post('/add-visitor', upload.single('photo'), expressasynchandler(async (req, res) => {
+  try {
   const { name, contact, reason, gender, address, uniqueId, fromTime, toTime } = req.body;
   const photo = req.file ? req.file.filename : null;
 
@@ -67,8 +69,8 @@ visitorApp.post('/add-visitor', upload.single('photo'), expressasynchandler(asyn
     address,
     uniqueId,
     visitorId,
-    fromTime,
-    toTime,
+    fromTime: new Date(fromTime),
+      toTime: new Date(toTime),
     photo // ✅ Save photo filename or null
   });
 
@@ -77,6 +79,10 @@ visitorApp.post('/add-visitor', upload.single('photo'), expressasynchandler(asyn
     message: 'Visitor added successfully',
     visitor: saved
   });
+  } catch (error) {
+    console.error('Error in add-visitor:', error);
+    res.status(500).send({ message: 'Server error', error: error.message });
+  }
 }));
 
 // 📌 View all visitors

@@ -75,7 +75,7 @@ const AddVisitor = () => {
       const response = await fetch(`${API_URL}/visitor-api/add-visitor`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          //'Content-Type': 'application/json',
           ...(token && { 'Authorization': `Bearer ${token}` })
         },
         body: formDataToSend
